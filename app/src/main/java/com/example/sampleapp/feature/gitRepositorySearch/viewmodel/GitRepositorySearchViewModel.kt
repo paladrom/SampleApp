@@ -41,7 +41,8 @@ class GitRepositorySearchViewModel @Inject constructor(
                     is GitResult.Success -> {
                         _state.update {
                             com.example.domain.model.GitSearchState.Success(
-                                result.data.orEmpty()
+                                result.data?.map { it.copy(isStarred = isRepositoryStarred(it.url.toString())) }
+                                    .orEmpty()
                             )
                         }
                     }
