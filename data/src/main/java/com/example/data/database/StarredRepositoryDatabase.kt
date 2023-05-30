@@ -1,9 +1,9 @@
-package com.example.sampleapp.data.database
+package com.example.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.sampleapp.data.database.dao.StarredRepositoryDao
-import com.example.sampleapp.data.database.entity.StarredRepositoryEntity
+import com.example.data.database.dao.StarredRepositoryDao
+import com.example.data.database.entity.StarredRepositoryEntity
 
 
 @Database(entities = [StarredRepositoryEntity::class], version = 1)

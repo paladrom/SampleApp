@@ -1,4 +1,4 @@
-package com.example.sampleapp.api
+package com.example.data.api
 
 /**
  *  ネットワーク リクエストの結果モデル

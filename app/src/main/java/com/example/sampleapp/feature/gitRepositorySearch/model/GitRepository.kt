@@ -1,7 +1,6 @@
 package com.example.sampleapp.feature.gitRepositorySearch.model
 
-import com.example.sampleapp.data.database.entity.StarredRepositoryEntity
-import com.example.sampleapp.data.dto.GitRepository as DTOGitRepository
+import com.example.data.dto.GitRepository as DTOGitRepository
 
 data class GitRepository(
     val name: String?,
@@ -31,8 +30,8 @@ fun DTOGitRepository.toGitRepositoryModel(isStarred: Boolean): GitRepository {
     )
 }
 
-fun GitRepository.toStarredRepositoryEntity(): StarredRepositoryEntity {
-    return StarredRepositoryEntity(
+fun GitRepository.toStarredRepositoryEntity(): com.example.data.database.entity.StarredRepositoryEntity {
+    return com.example.data.database.entity.StarredRepositoryEntity(
         name = name.orEmpty(),
         url = url.orEmpty(),
         owner = ownerName.orEmpty(),
@@ -45,7 +44,7 @@ fun GitRepository.toStarredRepositoryEntity(): StarredRepositoryEntity {
     )
 }
 
-fun StarredRepositoryEntity.toGitRepository(): GitRepository {
+fun com.example.data.database.entity.StarredRepositoryEntity.toGitRepository(): GitRepository {
     return GitRepository(
         name = name,
         url = url,

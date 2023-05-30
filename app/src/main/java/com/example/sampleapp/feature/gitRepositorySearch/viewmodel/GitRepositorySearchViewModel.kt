@@ -3,14 +3,14 @@ package com.example.sampleapp.feature.gitRepositorySearch.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
-import com.example.sampleapp.api.ApiResult
+import com.example.data.api.ApiResult
 import com.example.sampleapp.feature.gitRepositorySearch.domain.SearchGitRepositoriesUseCase
 import com.example.sampleapp.feature.gitRepositorySearch.domain.StarOrUnstarRepositoryUseCase
 import com.example.sampleapp.feature.gitRepositorySearch.domain.StarredRepositoriesUseCase
 import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepository
 import com.example.sampleapp.feature.gitRepositorySearch.model.GitSearchState
 import com.example.sampleapp.feature.gitRepositorySearch.model.toGitRepositoryModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -56,6 +56,8 @@ class GitRepositorySearchViewModel @Inject constructor(
                     is ApiResult.Error -> {
                         _state.value = GitSearchState.Error(result.exception)
                     }
+
+                    else -> {}
                 }
             } catch (e: Exception) {
                 _state.value = GitSearchState.Error(e)

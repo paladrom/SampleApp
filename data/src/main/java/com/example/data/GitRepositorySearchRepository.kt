@@ -1,8 +1,8 @@
-package com.example.sampleapp.data
+package com.example.data
 
+import com.example.data.api.ApiResult
+import com.example.data.dto.GitRepositoryResult
 import com.example.sampleapp.di.IoDispatcher
-import com.example.sampleapp.api.ApiResult
-import com.example.sampleapp.data.dto.GitRepositoryResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import timber.log.Timber

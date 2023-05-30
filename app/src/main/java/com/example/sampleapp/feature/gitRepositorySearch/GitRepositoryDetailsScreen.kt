@@ -24,10 +24,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.sampleapp.R
-import com.example.sampleapp.ui.ErrorField
 import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepository
 import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepositoryDetailsState
 import com.example.sampleapp.feature.gitRepositorySearch.viewmodel.GitRepositoryDetailsViewModel
+import com.example.sampleapp.ui.ErrorField
+import com.example.sampleapp.ui.GitSearchAppBar
 
 
 @Composable
@@ -45,9 +46,10 @@ private fun GitRepositoryDetailsScreen(
     state: GitRepositoryDetailsState
 ) {
     Scaffold(
+        topBar = { GitSearchAppBar() },
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 40.dp, bottom = 20.dp)
+            .padding(top = 64.dp, bottom = 20.dp)
     ) { paddingValues ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

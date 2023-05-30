@@ -1,8 +1,8 @@
 package com.example.sampleapp.feature.gitRepositorySearch.domain
 
-import com.example.sampleapp.api.ApiResult
-import com.example.sampleapp.data.dto.GitRepositoryResult
-import com.example.sampleapp.data.GitRepositorySearchRepository
+import com.example.data.GitRepositorySearchRepository
+import com.example.data.api.ApiResult
+import com.example.data.dto.GitRepositoryResult
 import javax.inject.Inject
 
 

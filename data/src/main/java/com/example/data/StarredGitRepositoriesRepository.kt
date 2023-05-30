@@ -1,8 +1,8 @@
-package com.example.sampleapp.data
+package com.example.data
 
+import com.example.data.database.dao.StarredRepositoryDao
+import com.example.data.database.entity.StarredRepositoryEntity
 import com.example.sampleapp.di.IoDispatcher
-import com.example.sampleapp.data.database.dao.StarredRepositoryDao
-import com.example.sampleapp.data.database.entity.StarredRepositoryEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext

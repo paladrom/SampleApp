@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -28,13 +29,13 @@ import androidx.navigation.NavController
 import com.example.sampleapp.R
 import com.example.sampleapp.feature.base.GitBottomNavigationBar
 import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepository
+import com.example.sampleapp.feature.gitRepositorySearch.model.GitSearchState
 import com.example.sampleapp.feature.gitRepositorySearch.ui.GitRepositoryList
 import com.example.sampleapp.feature.gitRepositorySearch.viewmodel.GitRepositorySearchViewModel
 import com.example.sampleapp.ui.ComposeTheme
 import com.example.sampleapp.ui.ErrorField
-import com.example.sampleapp.ui.SearchField
-import com.example.sampleapp.feature.gitRepositorySearch.model.GitSearchState
 import com.example.sampleapp.ui.GitSearchAppBar
+import com.example.sampleapp.ui.SearchField
 
 
 @Composable
@@ -130,14 +131,16 @@ private fun GitRepositorySearchListScreen(
 @Composable
 private fun StarredGitRepositoriesListScreenPreview() {
     ComposeTheme {
-        GitRepositorySearchListScreen(
-            gitSearchResultState = GitSearchState.Success(mockSearchRepositories()),
-            onRepositoryClick = {},
-            onSearchClick = {},
-            onTryAgainClick = {},
-            onStarClick = {},
-            Modifier
-        )
+        Surface {
+            GitRepositorySearchListScreen(
+                gitSearchResultState = GitSearchState.Success(mockSearchRepositories()),
+                onRepositoryClick = {},
+                onSearchClick = {},
+                onTryAgainClick = {},
+                onStarClick = {},
+                Modifier
+            )
+        }
     }
 
 }
@@ -146,14 +149,16 @@ private fun StarredGitRepositoriesListScreenPreview() {
 @Composable
 private fun GitRepositorySearchListLoadingScreenPreview() {
     ComposeTheme {
-        GitRepositorySearchListScreen(
-            gitSearchResultState = GitSearchState.Loading,
-            onRepositoryClick = {},
-            onSearchClick = {},
-            onTryAgainClick = {},
-            onStarClick = {},
-            Modifier
-        )
+        Surface {
+            GitRepositorySearchListScreen(
+                gitSearchResultState = GitSearchState.Loading,
+                onRepositoryClick = {},
+                onSearchClick = {},
+                onTryAgainClick = {},
+                onStarClick = {},
+                Modifier
+            )
+        }
     }
 
 }
@@ -163,16 +168,17 @@ private fun GitRepositorySearchListLoadingScreenPreview() {
 @Composable
 private fun GitRepositorySearchListErrorScreenPreview() {
     ComposeTheme {
-        GitRepositorySearchListScreen(
-            gitSearchResultState = GitSearchState.Error(IllegalStateException()),
-            onRepositoryClick = {},
-            onSearchClick = {},
-            onTryAgainClick = {},
-            onStarClick = {},
-            Modifier
-        )
+        Surface {
+            GitRepositorySearchListScreen(
+                gitSearchResultState = GitSearchState.Error(IllegalStateException()),
+                onRepositoryClick = {},
+                onSearchClick = {},
+                onTryAgainClick = {},
+                onStarClick = {},
+                Modifier
+            )
+        }
     }
-
 }
 
 private fun mockSearchRepositories(): List<GitRepository> {

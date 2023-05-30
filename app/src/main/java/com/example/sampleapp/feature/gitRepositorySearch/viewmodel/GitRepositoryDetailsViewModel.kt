@@ -3,13 +3,12 @@ package com.example.sampleapp.feature.gitRepositorySearch.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
-import com.example.sampleapp.data.dto.GitRepositoryResult
 import com.example.sampleapp.feature.gitRepositorySearch.domain.GetGitRepositoriesResultCacheUseCase
 import com.example.sampleapp.feature.gitRepositorySearch.domain.StarredRepositoriesUseCase
 import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepository
 import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepositoryDetailsState
 import com.example.sampleapp.feature.gitRepositorySearch.model.toGitRepositoryModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -55,7 +54,7 @@ class GitRepositoryDetailsViewModel @Inject constructor(
         return repository.toGitRepositoryModel(starredRepositoriesUseCase.getSingle(repositoryUrl) != null)
     }
 
-    private fun getCachedRepositoriesResult(): GitRepositoryResult? {
+    private fun getCachedRepositoriesResult(): com.example.data.dto.GitRepositoryResult? {
         return getGitRepositoriesResultCacheUseCase.invoke()
     }
 

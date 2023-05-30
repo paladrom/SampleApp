@@ -7,10 +7,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.Scaffold
@@ -22,11 +20,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.sampleapp.ui.ComposeTheme
 import com.example.sampleapp.feature.base.GitBottomNavigationBar
 import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepository
 import com.example.sampleapp.feature.gitRepositorySearch.ui.GitRepositoryList
 import com.example.sampleapp.feature.gitRepositorySearch.viewmodel.StarredGitRepositoriesViewModel
+import com.example.sampleapp.ui.ComposeTheme
 import com.example.sampleapp.ui.GitSearchAppBar
 
 @Composable
@@ -69,9 +67,8 @@ fun StarredGitRepositoriesScreen(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .padding(top = 24.dp, bottom = paddingValues.calculateBottomPadding())
+            .padding(top = 20.dp, bottom = paddingValues.calculateBottomPadding())
     ) {
-        Spacer(Modifier.height(24.dp))
         AnimatedVisibility(
             visible = true,
             enter = fadeIn(animationSpec = TweenSpec(500)),

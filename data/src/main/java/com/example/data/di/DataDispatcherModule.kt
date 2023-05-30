@@ -10,7 +10,7 @@ import javax.inject.Qualifier
 
 @InstallIn(SingletonComponent::class)
 @Module
-object AppDispatcherModule {
+object DataDispatcherModule {
     @DefaultDispatcher
     @Provides
     fun providesDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
@@ -18,11 +18,6 @@ object AppDispatcherModule {
     @IoDispatcher
     @Provides
     fun providesIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
-
-    @MainDispatcher
-    @Provides
-    fun providesMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
-
 }
 
 @Retention(AnnotationRetention.BINARY)
@@ -32,7 +27,3 @@ annotation class DefaultDispatcher
 @Retention(AnnotationRetention.BINARY)
 @Qualifier
 annotation class IoDispatcher
-
-@Retention(AnnotationRetention.BINARY)
-@Qualifier
-annotation class MainDispatcher

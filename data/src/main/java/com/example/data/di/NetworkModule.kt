@@ -1,4 +1,4 @@
-package com.example.sampleapp.di
+package com.example.data.di
 
 import dagger.Module
 import dagger.Provides

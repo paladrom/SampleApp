@@ -1,6 +1,6 @@
 package com.example.sampleapp.feature.gitRepositorySearch.domain
 
-import com.example.sampleapp.data.StarredGitRepositoriesRepository
+import com.example.data.StarredGitRepositoriesRepository
 import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepository
 import com.example.sampleapp.feature.gitRepositorySearch.model.toGitRepository
 import kotlinx.coroutines.flow.Flow

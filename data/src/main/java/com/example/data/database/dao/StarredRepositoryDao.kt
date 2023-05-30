@@ -1,7 +1,7 @@
-package com.example.sampleapp.data.database.dao
+package com.example.data.database.dao
 
 import androidx.room.*
-import com.example.sampleapp.data.database.entity.StarredRepositoryEntity
+import com.example.data.database.entity.StarredRepositoryEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
