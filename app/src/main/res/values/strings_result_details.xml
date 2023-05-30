@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="stars_count">
+        <item formatted="true" quantity="one">%1$d star</item>
+        <item formatted="true" quantity="other">%1$d stars</item>
+    </plurals>
+    <plurals name="watchers_count">
+        <item formatted="true" quantity="one">%1$d watcher</item>
+        <item formatted="true" quantity="other">%1$d watchers</item>
+    </plurals>
+    <plurals name="forks_count">
+        <item formatted="true" quantity="one">%1$d fork</item>
+        <item formatted="true" quantity="other">%1$d forks</item>
+    </plurals>
+    <plurals name="open_issues_count">
+        <item formatted="true" quantity="one">%1$d open issue</item>
+        <item formatted="true" quantity="other">%1$d open issues</item>
+    </plurals>
+    <string name="repository_image_description">Repository image</string>
+</resources>

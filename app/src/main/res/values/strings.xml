@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Android SampleApp</string>
+    <string name="screen_tab_saved">セーブ</string>
+    <string name="screen_tab_search">検索</string>
+    <string name="searchInputText_hint">GitHub のリポジトリを検索できるよー</string>
+    <string name="last_search_date">Last search date:  %s</string>
+    <string name="written_language">Written in %s</string>
+    <string name="error_could_not_find_repository">"Could not find the repository"</string>
+    <string name="error_generic">"Something went wrong, please try again"</string>
+    <string name="error_data">"Data not found"</string>
+    <string name="action_search">Search</string>
+    <string name="action_try_again">Try again</string>
+</resources>

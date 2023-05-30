@@ -1,0 +1,22 @@
+
+buildscript {
+    ext.kotlin_version = '1.8.10'
+    ext.compose_version = '1.4.3'
+    ext.coroutines_version = '1.7.1'
+    ext.hilt_version = '2.46'
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3'
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
