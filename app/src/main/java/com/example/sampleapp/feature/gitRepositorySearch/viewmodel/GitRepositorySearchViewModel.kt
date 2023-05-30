@@ -3,13 +3,7 @@ package com.example.sampleapp.feature.gitRepositorySearch.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.data.api.ApiResult
-import com.example.sampleapp.feature.gitRepositorySearch.domain.SearchGitRepositoriesUseCase
-import com.example.sampleapp.feature.gitRepositorySearch.domain.StarOrUnstarRepositoryUseCase
-import com.example.sampleapp.feature.gitRepositorySearch.domain.StarredRepositoriesUseCase
-import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepository
-import com.example.sampleapp.feature.gitRepositorySearch.model.GitSearchState
-import com.example.sampleapp.feature.gitRepositorySearch.model.toGitRepositoryModel
+import com.example.domain.model.GitResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,11 +15,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GitRepositorySearchViewModel @Inject constructor(
-    private val searchGitRepositoriesUseCase: SearchGitRepositoriesUseCase,
-    private val starRepositoriesUseCase: StarOrUnstarRepositoryUseCase,
-    private val starredRepositoriesUseCase: StarredRepositoriesUseCase
+    private val searchGitRepositoriesUseCase: com.example.domain.domain.SearchGitRepositoriesUseCase,
+    private val starRepositoriesUseCase: com.example.domain.domain.StarOrUnstarRepositoryUseCase,
+    private val starredRepositoriesUseCase: com.example.domain.domain.StarredRepositoriesUseCase
 ) : ViewModel() {
-    private val _state = MutableStateFlow<GitSearchState>(GitSearchState.Init)
+    private val _state =
+        MutableStateFlow<com.example.domain.model.GitSearchState>(com.example.domain.model.GitSearchState.Init)
     val state = _state.asStateFlow()
 
     init {
@@ -38,29 +33,28 @@ class GitRepositorySearchViewModel @Inject constructor(
      * @return 検索結果
      */
     fun performSearch(inputText: String) {
-        _state.value = GitSearchState.Loading
+        _state.value = com.example.domain.model.GitSearchState.Loading
         viewModelScope.launch {
             try {
                 val result = searchGitRepositoriesUseCase.invoke(inputText)
                 when (result) {
-                    is ApiResult.Success -> {
+                    is GitResult.Success -> {
                         _state.update {
-                            GitSearchState.Success(
-                                result.data.items?.map {
-                                    it.toGitRepositoryModel(isRepositoryStarred(it.url))
-                                }.orEmpty()
+                            com.example.domain.model.GitSearchState.Success(
+                                result.data.orEmpty()
                             )
                         }
                     }
 
-                    is ApiResult.Error -> {
-                        _state.value = GitSearchState.Error(result.exception)
+                    is GitResult.Error -> {
+                        _state.value =
+                            com.example.domain.model.GitSearchState.Error(result.exception)
                     }
 
                     else -> {}
                 }
             } catch (e: Exception) {
-                _state.value = GitSearchState.Error(e)
+                _state.value = com.example.domain.model.GitSearchState.Error(e)
                 Timber.e(e, e.message)
             }
         }
@@ -70,9 +64,9 @@ class GitRepositorySearchViewModel @Inject constructor(
         viewModelScope.launch {
             starredRepositoriesUseCase.getAll().collect { databaseRepositories ->
                 val searchState = state.value
-                if (searchState is GitSearchState.Success) {
+                if (searchState is com.example.domain.model.GitSearchState.Success) {
                     _state.update {
-                        GitSearchState.Success(
+                        com.example.domain.model.GitSearchState.Success(
                             searchState.repositories.map { repository ->
                                 repository.copy(isStarred = isRepositoryStarred(repository.url))
                             }
@@ -88,7 +82,7 @@ class GitRepositorySearchViewModel @Inject constructor(
         return starredRepositoriesUseCase.getSingle(repositoryUrl) != null
     }
 
-    fun starOrUnstarRepository(repository: GitRepository) {
+    fun starOrUnstarRepository(repository: com.example.domain.model.GitRepository) {
         viewModelScope.launch {
             val success = starRepositoriesUseCase.invoke(repository)
             if (!success) {

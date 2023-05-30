@@ -1,4 +1,4 @@
-package com.example.sampleapp.feature.gitRepositorySearch.model
+package com.example.domain.model
 
 
 sealed class StarredGitRepositoriesState {

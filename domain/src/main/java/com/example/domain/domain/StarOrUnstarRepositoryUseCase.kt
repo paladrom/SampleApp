@@ -1,8 +1,8 @@
-package com.example.sampleapp.feature.gitRepositorySearch.domain
+package com.example.domain.domain
 
 import com.example.data.StarredGitRepositoriesRepository
-import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepository
-import com.example.sampleapp.feature.gitRepositorySearch.model.toStarredRepositoryEntity
+import com.example.domain.model.GitRepository
+import com.example.domain.model.toStarredRepositoryEntity
 import javax.inject.Inject
 
 

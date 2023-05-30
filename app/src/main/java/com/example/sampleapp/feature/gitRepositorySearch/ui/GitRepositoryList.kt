@@ -18,13 +18,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sampleapp.R
-import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepository
 
 @Composable
 fun GitRepositoryList(
-    gitSearchResultItems: List<GitRepository>,
-    onRepositoryClick: (GitRepository) -> Unit,
-    onStarClick: (GitRepository) -> Unit
+    gitSearchResultItems: List<com.example.domain.model.GitRepository>,
+    onRepositoryClick: (com.example.domain.model.GitRepository) -> Unit,
+    onStarClick: (com.example.domain.model.GitRepository) -> Unit
 ) {
     val starStateMap = remember { mutableStateMapOf<String, Boolean>() }
     LazyColumn(
@@ -36,7 +35,8 @@ fun GitRepositoryList(
             GitSearchResultsListHeaders()
         }
         items(gitSearchResultItems) {
-            val isStarred = it.url?.run { starStateMap.getOrPut(it.url) { it.isStarred } }
+            val isStarred =
+                it.url?.run { starStateMap.getOrPut(it.url.toString()) { it.isStarred } }
             GitRepositoryListItem(
                 startText = it.name.orEmpty(),
                 endText = it.ownerName.orEmpty(),
@@ -45,7 +45,7 @@ fun GitRepositoryList(
                     onStarClick.invoke(it)
                     val currentState = starStateMap[it.url]
                     if (it.url != null && currentState != null) {
-                        starStateMap[it.url] = !currentState
+                        starStateMap[it.url.toString()] = !currentState
                     }
                 },
                 isStarred = isStarred ?: false

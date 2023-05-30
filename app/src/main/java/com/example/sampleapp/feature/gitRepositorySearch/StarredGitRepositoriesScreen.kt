@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.sampleapp.feature.base.GitBottomNavigationBar
-import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepository
 import com.example.sampleapp.feature.gitRepositorySearch.ui.GitRepositoryList
 import com.example.sampleapp.feature.gitRepositorySearch.viewmodel.StarredGitRepositoriesViewModel
 import com.example.sampleapp.ui.ComposeTheme
@@ -31,7 +30,7 @@ import com.example.sampleapp.ui.GitSearchAppBar
 fun StarredGitRepositoriesScreen(
     viewModel: StarredGitRepositoriesViewModel = hiltViewModel(),
     navController: NavController,
-    onRepositoryClick: (GitRepository) -> Unit,
+    onRepositoryClick: (com.example.domain.model.GitRepository) -> Unit,
 ) {
     val state = viewModel.state.collectAsState(emptyList())
 
@@ -57,9 +56,9 @@ fun StarredGitRepositoriesScreen(
 
 @Composable
 fun StarredGitRepositoriesScreen(
-    state: List<GitRepository>,
-    onStarClick: (GitRepository) -> Unit,
-    onRepositoryClick: (GitRepository) -> Unit,
+    state: List<com.example.domain.model.GitRepository>,
+    onStarClick: (com.example.domain.model.GitRepository) -> Unit,
+    onRepositoryClick: (com.example.domain.model.GitRepository) -> Unit,
     paddingValues: PaddingValues
 ) {
     Column(
@@ -97,9 +96,9 @@ private fun StarredGitRepositoriesListScreenPreview() {
     }
 }
 
-private fun mockSavedRepositories(): List<GitRepository> {
+private fun mockSavedRepositories(): List<com.example.domain.model.GitRepository> {
     val mockRepository =
-        GitRepository(
+        com.example.domain.model.GitRepository(
             name = "nowInAndroid",
             ownerName = "android",
             ownerIconUrl = null,

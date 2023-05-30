@@ -28,8 +28,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.sampleapp.R
 import com.example.sampleapp.feature.base.GitBottomNavigationBar
-import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepository
-import com.example.sampleapp.feature.gitRepositorySearch.model.GitSearchState
 import com.example.sampleapp.feature.gitRepositorySearch.ui.GitRepositoryList
 import com.example.sampleapp.feature.gitRepositorySearch.viewmodel.GitRepositorySearchViewModel
 import com.example.sampleapp.ui.ComposeTheme
@@ -42,9 +40,9 @@ import com.example.sampleapp.ui.SearchField
 fun GitRepositorySearchListScreen(
     navController: NavController,
     viewModel: GitRepositorySearchViewModel = hiltViewModel(),
-    onRepositoryClick: (GitRepository) -> Unit
+    onRepositoryClick: (com.example.domain.model.GitRepository) -> Unit
 ) {
-    val state = viewModel.state.collectAsState(GitSearchState.Init)
+    val state = viewModel.state.collectAsState(com.example.domain.model.GitSearchState.Init)
     val searchText = remember { mutableStateOf("") }
 
     Scaffold(
@@ -76,11 +74,11 @@ fun GitRepositorySearchListScreen(
 
 @Composable
 private fun GitRepositorySearchListScreen(
-    gitSearchResultState: GitSearchState,
-    onRepositoryClick: (GitRepository) -> Unit,
+    gitSearchResultState: com.example.domain.model.GitSearchState,
+    onRepositoryClick: (com.example.domain.model.GitRepository) -> Unit,
     onSearchClick: (String) -> Unit,
     onTryAgainClick: () -> Unit,
-    onStarClick: (GitRepository) -> Unit,
+    onStarClick: (com.example.domain.model.GitRepository) -> Unit,
     modifier: Modifier
 ) {
     remember { mutableStateOf(false) }
@@ -97,10 +95,10 @@ private fun GitRepositorySearchListScreen(
         )
         Spacer(Modifier.height(20.dp))
         AnimatedVisibility(
-            visible = gitSearchResultState is GitSearchState.Success,
+            visible = gitSearchResultState is com.example.domain.model.GitSearchState.Success,
             enter = fadeIn(animationSpec = TweenSpec(500)),
             exit = fadeOut(animationSpec = TweenSpec(500)), content = {
-                if (gitSearchResultState is GitSearchState.Success)
+                if (gitSearchResultState is com.example.domain.model.GitSearchState.Success)
                     GitRepositoryList(
                         gitSearchResultItems = gitSearchResultState.repositories,
                         onRepositoryClick = onRepositoryClick,
@@ -109,7 +107,7 @@ private fun GitRepositorySearchListScreen(
             })
 
         AnimatedVisibility(
-            visible = gitSearchResultState is GitSearchState.Error,
+            visible = gitSearchResultState is com.example.domain.model.GitSearchState.Error,
             enter = fadeIn(animationSpec = TweenSpec(500)),
             exit = fadeOut(animationSpec = TweenSpec(500))
         ) {
@@ -117,7 +115,7 @@ private fun GitRepositorySearchListScreen(
         }
 
         AnimatedVisibility(
-            visible = gitSearchResultState is GitSearchState.Loading,
+            visible = gitSearchResultState is com.example.domain.model.GitSearchState.Loading,
             enter = fadeIn(animationSpec = TweenSpec(500)),
             exit = fadeOut(animationSpec = TweenSpec(500))
         ) {
@@ -133,7 +131,9 @@ private fun StarredGitRepositoriesListScreenPreview() {
     ComposeTheme {
         Surface {
             GitRepositorySearchListScreen(
-                gitSearchResultState = GitSearchState.Success(mockSearchRepositories()),
+                gitSearchResultState = com.example.domain.model.GitSearchState.Success(
+                    mockSearchRepositories()
+                ),
                 onRepositoryClick = {},
                 onSearchClick = {},
                 onTryAgainClick = {},
@@ -151,7 +151,7 @@ private fun GitRepositorySearchListLoadingScreenPreview() {
     ComposeTheme {
         Surface {
             GitRepositorySearchListScreen(
-                gitSearchResultState = GitSearchState.Loading,
+                gitSearchResultState = com.example.domain.model.GitSearchState.Loading,
                 onRepositoryClick = {},
                 onSearchClick = {},
                 onTryAgainClick = {},
@@ -170,7 +170,9 @@ private fun GitRepositorySearchListErrorScreenPreview() {
     ComposeTheme {
         Surface {
             GitRepositorySearchListScreen(
-                gitSearchResultState = GitSearchState.Error(IllegalStateException()),
+                gitSearchResultState = com.example.domain.model.GitSearchState.Error(
+                    IllegalStateException()
+                ),
                 onRepositoryClick = {},
                 onSearchClick = {},
                 onTryAgainClick = {},
@@ -181,9 +183,9 @@ private fun GitRepositorySearchListErrorScreenPreview() {
     }
 }
 
-private fun mockSearchRepositories(): List<GitRepository> {
+private fun mockSearchRepositories(): List<com.example.domain.model.GitRepository> {
     val mockRepository =
-        GitRepository(
+        com.example.domain.model.GitRepository(
             name = "nowInAndroid",
             ownerName = "android",
             ownerIconUrl = null,

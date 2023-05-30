@@ -3,11 +3,7 @@ package com.example.sampleapp.feature.gitRepositorySearch.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.sampleapp.feature.gitRepositorySearch.domain.GetGitRepositoriesResultCacheUseCase
-import com.example.sampleapp.feature.gitRepositorySearch.domain.StarredRepositoriesUseCase
-import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepository
-import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepositoryDetailsState
-import com.example.sampleapp.feature.gitRepositorySearch.model.toGitRepositoryModel
+import com.example.domain.model.GitRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,11 +14,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GitRepositoryDetailsViewModel @Inject constructor(
-    private val getGitRepositoriesResultCacheUseCase: GetGitRepositoriesResultCacheUseCase,
-    private val starredRepositoriesUseCase: StarredRepositoriesUseCase,
+    private val getGitRepositoriesResultCacheUseCase: com.example.domain.domain.GetGitRepositoriesResultCacheUseCase,
+    private val starredRepositoriesUseCase: com.example.domain.domain.StarredRepositoriesUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-    private val _state = MutableStateFlow<GitRepositoryDetailsState>(GitRepositoryDetailsState.Init)
+    private val _state =
+        MutableStateFlow<com.example.domain.model.GitRepositoryDetailsState>(com.example.domain.model.GitRepositoryDetailsState.Init)
     val state = _state.asStateFlow()
     private val repositoryUrl = savedStateHandle.get<String>(REPOSITORY_URL_STATE_KEY)!!
     private val isStarred = savedStateHandle.get<Boolean>(REPOSITORY_STARRED_STATE_KEY)!!
@@ -41,20 +38,20 @@ class GitRepositoryDetailsViewModel @Inject constructor(
                 getCachedRepository(repositoryUrl)
             }
             repository ?: throw (IllegalArgumentException("Repository missing"))
-            _state.value = GitRepositoryDetailsState.Success(repository)
+            _state.value = com.example.domain.model.GitRepositoryDetailsState.Success(repository)
         } catch (e: Exception) {
-            _state.value = GitRepositoryDetailsState.Error(e)
+            _state.value = com.example.domain.model.GitRepositoryDetailsState.Error(e)
             Timber.e(e, e.message)
         }
     }
 
     private suspend fun getCachedRepository(repositoryUrl: String): GitRepository? {
-        val repository = getCachedRepositoriesResult()?.items?.find { it.url == repositoryUrl }
+        val repository = getCachedRepositoriesResult()?.find { it.url == repositoryUrl }
         repository ?: return null
-        return repository.toGitRepositoryModel(starredRepositoriesUseCase.getSingle(repositoryUrl) != null)
+        return repository.copy(isStarred = starredRepositoriesUseCase.getSingle(repositoryUrl) != null)
     }
 
-    private fun getCachedRepositoriesResult(): com.example.data.dto.GitRepositoryResult? {
+    private fun getCachedRepositoriesResult(): List<GitRepository>? {
         return getGitRepositoriesResultCacheUseCase.invoke()
     }
 

@@ -1,8 +1,8 @@
-package com.example.sampleapp.feature.gitRepositorySearch.domain
+package com.example.domain.domain
 
 import com.example.data.StarredGitRepositoriesRepository
-import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepository
-import com.example.sampleapp.feature.gitRepositorySearch.model.toGitRepository
+import com.example.domain.model.GitRepository
+import com.example.domain.model.toGitRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

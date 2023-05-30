@@ -24,8 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.example.sampleapp.R
-import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepository
-import com.example.sampleapp.feature.gitRepositorySearch.model.GitRepositoryDetailsState
 import com.example.sampleapp.feature.gitRepositorySearch.viewmodel.GitRepositoryDetailsViewModel
 import com.example.sampleapp.ui.ErrorField
 import com.example.sampleapp.ui.GitSearchAppBar
@@ -35,7 +33,8 @@ import com.example.sampleapp.ui.GitSearchAppBar
 fun GitRepositoryDetailsScreen(
     viewModel: GitRepositoryDetailsViewModel = hiltViewModel()
 ) {
-    val state = viewModel.state.collectAsState(GitRepositoryDetailsState.Init)
+    val state =
+        viewModel.state.collectAsState(com.example.domain.model.GitRepositoryDetailsState.Init)
     GitRepositoryDetailsScreen(
         state.value
     )
@@ -43,7 +42,7 @@ fun GitRepositoryDetailsScreen(
 
 @Composable
 private fun GitRepositoryDetailsScreen(
-    state: GitRepositoryDetailsState
+    state: com.example.domain.model.GitRepositoryDetailsState
 ) {
     Scaffold(
         topBar = { GitSearchAppBar() },
@@ -60,16 +59,16 @@ private fun GitRepositoryDetailsScreen(
         ) {
             Spacer(modifier = Modifier.height(12.dp))
             when (state) {
-                is GitRepositoryDetailsState.Success -> {
+                is com.example.domain.model.GitRepositoryDetailsState.Success -> {
                     GitRepositoryImageView(repository = state.repository)
                     GitRepositoryDetailsView(repository = state.repository)
                 }
 
-                is GitRepositoryDetailsState.Error -> {
+                is com.example.domain.model.GitRepositoryDetailsState.Error -> {
                     ErrorField {}
                 }
 
-                GitRepositoryDetailsState.Init -> {}
+                com.example.domain.model.GitRepositoryDetailsState.Init -> {}
             }
         }
     }
@@ -77,7 +76,7 @@ private fun GitRepositoryDetailsScreen(
 
 @Composable
 fun GitRepositoryImageView(
-    repository: GitRepository
+    repository: com.example.domain.model.GitRepository
 ) {
     AsyncImage(
         model = repository.ownerIconUrl,
@@ -88,7 +87,7 @@ fun GitRepositoryImageView(
 
 @Composable
 fun GitRepositoryDetailsView(
-    repository: GitRepository
+    repository: com.example.domain.model.GitRepository
 ) {
     Row(modifier = Modifier.padding(20.dp)) {
         Spacer(modifier = Modifier.weight(0.2f))
@@ -141,7 +140,7 @@ fun GitRepositoryDetailsView(
 @Composable
 private fun GitRepositoryDetailsScreenPreview() {
     GitRepositoryDetailsScreen(
-        state = GitRepositoryDetailsState.Success(mockRepository())
+        state = com.example.domain.model.GitRepositoryDetailsState.Success(mockRepository())
     )
 }
 
@@ -150,12 +149,12 @@ private fun GitRepositoryDetailsScreenPreview() {
 @Composable
 private fun GitRepositoryDetailsErrorScreenPreview() {
     GitRepositoryDetailsScreen(
-        state = GitRepositoryDetailsState.Error(IllegalStateException())
+        state = com.example.domain.model.GitRepositoryDetailsState.Error(IllegalStateException())
     )
 }
 
-private fun mockRepository(): GitRepository =
-    GitRepository(
+private fun mockRepository(): com.example.domain.model.GitRepository =
+    com.example.domain.model.GitRepository(
         name = "nowInAndroid",
         ownerName = "android",
         ownerIconUrl = "",

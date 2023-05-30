@@ -1,4 +1,4 @@
-package com.example.sampleapp.feature.gitRepositorySearch.model
+package com.example.domain.model
 
 import com.example.data.dto.GitRepository as DTOGitRepository
 

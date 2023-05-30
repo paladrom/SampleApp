@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.data'
+    namespace 'com.example.domain'
     compileSdk 33
 
     defaultConfig {
@@ -36,7 +36,7 @@ android {
 }
 
 dependencies {
-
+    implementation project(path: ':data')
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
 
@@ -48,24 +48,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     testImplementation 'io.mockk:mockk:1.12.1'
 
-    //*** Room database ***
-    def room_version = '2.6.0-alpha01'
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-
-    implementation "androidx.room:room-ktx:$room_version"
-
     // *** Dependency injection ***
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
-
-    implementation 'com.jakewharton.timber:timber:5.0.1'
-
-    // *** Network libraries ***
-    var ktor_version = '2.3.0'
-    implementation "io.ktor:ktor-client-android:$ktor_version"
-    implementation "io.ktor:ktor-client-core:$ktor_version"
-    implementation "io.ktor:ktor-client-content-negotiation:$ktor_version"
-    implementation "io.ktor:ktor-serialization-kotlinx-json:$ktor_version"
-    implementation "io.ktor:ktor-client-logging-jvm:$ktor_version"
 }

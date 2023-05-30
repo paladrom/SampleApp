@@ -1,7 +1,8 @@
-package com.example.sampleapp.feature.gitRepositorySearch.domain
+package com.example.domain.domain
 
 import com.example.data.GitRepositorySearchRepository
-import com.example.data.dto.GitRepositoryResult
+import com.example.domain.model.GitRepository
+import com.example.domain.model.toGitRepositoryModel
 import javax.inject.Inject
 
 
@@ -12,7 +13,11 @@ class GetGitRepositoriesResultCacheUseCase @Inject constructor(
      * Git repositoryの検索結果のキャッシュを取得
      * @return キャッシュを取得の結果
      */
-    operator fun invoke(): GitRepositoryResult? {
-        return gitRepositorySearchRepository.getGitRepositoryResultCache()
+    operator fun invoke(): List<GitRepository>? {
+        return gitRepositorySearchRepository.getGitRepositoryResultCache()?.items?.map {
+            it.toGitRepositoryModel(
+                false
+            )
+        }
     }
 }
