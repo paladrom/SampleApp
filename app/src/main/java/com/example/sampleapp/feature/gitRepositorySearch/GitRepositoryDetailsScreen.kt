@@ -112,18 +112,21 @@ fun GitRepositoryDetailsView(
             Text(
                 text = pluralStringResource(
                     id = R.plurals.stars_count,
+                    count = repository.stargazersCount?.toInt() ?: 0,
                     repository.stargazersCount?.toInt() ?: 0
                 )
             )
             Text(
                 text = pluralStringResource(
                     id = R.plurals.forks_count,
+                    count = repository.forksCount?.toInt() ?: 0,
                     repository.forksCount?.toInt() ?: 0
                 )
             )
             Text(
                 text = pluralStringResource(
                     id = R.plurals.open_issues_count,
+                    count = repository.openIssuesCount?.toInt() ?: 0,
                     repository.openIssuesCount?.toInt() ?: 0
                 )
             )
